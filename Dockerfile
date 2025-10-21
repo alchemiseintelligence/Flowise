@@ -42,6 +42,17 @@ RUN pnpm build
 # ENV FLOWISE_LOG_DIR=/opt/render/.flowise/log
 # ENV HOST=0.0.0.0
 
+# ✅ Fix: create absolute Flowise log directory
+RUN mkdir -p /opt/render/.flowise/log
+RUN chmod -R 777 /opt/render/.flowise
+
+# ✅ Ensure Flowise uses the correct absolute path
+ENV FLOWISE_DATA_DIR=/opt/render/.flowise
+ENV FLOWISE_LOG_PATH=/opt/render/.flowise/log
+ENV FLOWISE_LOG_DIR=/opt/render/.flowise/log
+ENV HOST=0.0.0.0
+
+
 EXPOSE 3000
 
 # CMD [ "pnpm", "start" ]
