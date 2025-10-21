@@ -105,7 +105,7 @@ WORKDIR /usr/src
 COPY . .
 
 # --- Install dependencies & build Flowise ---
-# RUN pnpm install --frozen-lockfile
+RUN pnpm install --no-frozen-lockfile
 RUN pnpm build
 
 # --- Persistent data/logs directory ---
