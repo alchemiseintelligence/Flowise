@@ -45,5 +45,6 @@ ENV NODE_OPTIONS="--max-old-space-size=4096"
 RUN pnpm run build --workspace-root --if-present -- --noEmitOnError false || true
 
 EXPOSE 3000
+ENV PORT = 3000
+CMD ["node", "packages/server/dist/index.js"]
 
-CMD [ "pnpm", "run", "start" ]
