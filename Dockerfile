@@ -29,7 +29,9 @@ WORKDIR /usr/src
 # Copy app source
 COPY . .
 
-RUN pnpm install
+# RUN pnpm install
+RUN pnpm config set ignore-scripts false
+RUN pnpm install --frozen-lockfile
 
 RUN pnpm build
 
