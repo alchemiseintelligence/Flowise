@@ -36,11 +36,11 @@ RUN pnpm install --frozen-lockfile
 RUN pnpm build
 
 # ✅ Fix missing log directory & host binding
-RUN mkdir -p /opt/render/.flowise/log
-RUN chmod -R 777 /opt/render/.flowise
-ENV FLOWISE_DATA_DIR=/opt/render/.flowise
-ENV FLOWISE_LOG_DIR=/opt/render/.flowise/log
-ENV HOST=0.0.0.0
+# RUN mkdir -p /opt/render/.flowise/log
+# RUN chmod -R 777 /opt/render/.flowise
+# ENV FLOWISE_DATA_DIR=/opt/render/.flowise
+# ENV FLOWISE_LOG_DIR=/opt/render/.flowise/log
+# ENV HOST=0.0.0.0
 
 EXPOSE 3000
 
