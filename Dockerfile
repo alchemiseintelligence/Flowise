@@ -42,15 +42,27 @@ RUN pnpm build
 # ENV FLOWISE_LOG_DIR=/opt/render/.flowise/log
 # ENV HOST=0.0.0.0
 
-# ✅ Fix: create absolute Flowise log directory
-RUN mkdir -p /opt/render/.flowise/log
-RUN chmod -R 777 /opt/render/.flowise
+# # ✅ Fix: create absolute Flowise log directory
+# RUN mkdir -p /opt/render/.flowise/log
+# RUN chmod -R 777 /opt/render/.flowise
 
-# ✅ Ensure Flowise uses the correct absolute path
-ENV FLOWISE_DATA_DIR=/opt/render/.flowise
-ENV FLOWISE_LOG_PATH=/opt/render/.flowise/log
-ENV FLOWISE_LOG_DIR=/opt/render/.flowise/log
+# # ✅ Ensure Flowise uses the correct absolute path
+# ENV FLOWISE_DATA_DIR=/opt/render/.flowise
+# ENV FLOWISE_LOG_PATH=/opt/render/.flowise/log
+# ENV FLOWISE_LOG_DIR=/opt/render/.flowise/log
+# ENV HOST=0.0.0.0
+
+RUN mkdir -p /usr/src/data/log
+RUN chmod -R 777 /usr/src/data
+
+ENV FLOWISE_DATA_DIR=/usr/src/data
+ENV FLOWISE_LOG_DIR=/usr/src/data/log
+ENV FLOWISE_LOG_PATH=/usr/src/data/log
 ENV HOST=0.0.0.0
+
+EXPOSE 3000
+
+CMD ["pnpm", "exec", "node", "packages/server/dist/index.js"]
 
 
 EXPOSE 3000
