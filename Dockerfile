@@ -43,4 +43,5 @@ ENV HOST=0.0.0.0
 EXPOSE 3000
 
 # CMD [ "pnpm", "start" ]
-CMD ["pnpm", "exec", "node", "packages/server/bin/run", "server"]
+# CMD ["pnpm", "exec", "node", "packages/server/bin/run", "server"]
+CMD ["pnpm", "exec", "node", "packages/server/dist/index.js"]
