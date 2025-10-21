@@ -60,6 +60,11 @@
 # Persistent data + all Flowise features enabled
 # --------------------------------------------------
 
+# --------------------------------------------------
+# Flowise 3.0.8 - Render Full Feature Dockerfile
+# Node 20 compatible + Puppeteer/Sharp/Canvas support
+# --------------------------------------------------
+
 FROM node:20-alpine
 
 # --- System dependencies for Puppeteer, Sharp, PDF, etc. ---
@@ -83,29 +88,33 @@ RUN apk add --update --no-cache \
 # --- Global PNPM installation ---
 RUN npm install -g pnpm
 
+# --- PNPM config: allow native builds & scripts ---
+RUN pnpm config set ignore-scripts false
+RUN pnpm config set allowed-builds "@swc/core canvas core-js core-js-pure esbuild protobufjs puppeteer sharp"
+
 # --- Puppeteer / Node environment ---
 ENV PUPPETEER_SKIP_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 ENV NODE_OPTIONS=--max-old-space-size=8192
+ENV HOST=0.0.0.0
+ENV PORT=3000
 
 WORKDIR /usr/src
 
 # --- Copy project files ---
 COPY . .
 
-# --- Install dependencies and build Flowise ---
-RUN pnpm install
+# --- Install dependencies & build Flowise ---
+RUN pnpm install --frozen-lockfile
 RUN pnpm build
 
-# --- Persistent data/logs directory (mount via Render Disk) ---
+# --- Persistent data/logs directory ---
 RUN mkdir -p /usr/src/data/logs
 RUN chmod -R 777 /usr/src/data
 
 ENV FLOWISE_DATA_DIR=/usr/src/data
 ENV FLOWISE_LOG_DIR=/usr/src/data/logs
 ENV FLOWISE_LOG_PATH=/usr/src/data/logs
-ENV HOST=0.0.0.0
-ENV PORT=3000
 
 EXPOSE 3000
 
