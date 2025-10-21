@@ -46,4 +46,4 @@ RUN pnpm run build --workspace-root --if-present -- --noEmitOnError false || tru
 
 EXPOSE 3000
 
-CMD [ "pnpm", "start" ]
+CMD [ "pnpm", "run", "start:server" ]
