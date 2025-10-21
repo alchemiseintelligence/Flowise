@@ -17,7 +17,6 @@ RUN apk add --no-cache \
 RUN npm install -g pnpm
 RUN pnpm config set ignore-scripts false
 RUN pnpm set enable-pre-post-scripts true
-RUN pnpm approve-builds
 
 # --- Environment variables for Puppeteer & Node ---
 ENV PUPPETEER_SKIP_DOWNLOAD=true
@@ -35,6 +34,8 @@ COPY . .
 # --- Install dependencies ---
 RUN pnpm config set ignore-scripts false
 RUN pnpm install --frozen-lockfile
+
+RUN pnpm approve-builds
 
 # --- Build Flowise (creates dist/index.js) ---
 RUN pnpm build
