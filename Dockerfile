@@ -33,10 +33,12 @@ RUN pnpm install
 
 RUN pnpm build
 
-# ✅ Fix: create writable directory for logs/config
+# ✅ Fix missing log directory & host binding
 RUN mkdir -p /opt/render/.flowise/log
 RUN chmod -R 777 /opt/render/.flowise
 ENV FLOWISE_DATA_DIR=/opt/render/.flowise
+ENV FLOWISE_LOG_DIR=/opt/render/.flowise/log
+ENV HOST=0.0.0.0
 
 EXPOSE 3000
 
