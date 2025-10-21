@@ -42,9 +42,10 @@ ENV TSC_COMPILE_ON_ERROR=true
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 
 # Force Turbo/TS to ignore type errors
-RUN pnpm run build --workspace-root --if-present -- --noEmitOnError false || true
+# RUN pnpm run build --workspace-root --if-present -- --noEmitOnError false || true
+RUN pnpm build
 
 EXPOSE 3000
 ENV PORT = 3000
-CMD ["node", "packages/server/dist/index.js"]
+CMD ["pnpm", "start"]
 
