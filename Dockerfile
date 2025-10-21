@@ -29,44 +29,10 @@ WORKDIR /usr/src
 # Copy app source
 COPY . .
 
-# RUN pnpm install
-RUN pnpm config set ignore-scripts false
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
 RUN pnpm build
 
-# ✅ Fix missing log directory & host binding
-# RUN mkdir -p /opt/render/.flowise/log
-# RUN chmod -R 777 /opt/render/.flowise
-# ENV FLOWISE_DATA_DIR=/opt/render/.flowise
-# ENV FLOWISE_LOG_DIR=/opt/render/.flowise/log
-# ENV HOST=0.0.0.0
-
-# # ✅ Fix: create absolute Flowise log directory
-# RUN mkdir -p /opt/render/.flowise/log
-# RUN chmod -R 777 /opt/render/.flowise
-
-# # ✅ Ensure Flowise uses the correct absolute path
-# ENV FLOWISE_DATA_DIR=/opt/render/.flowise
-# ENV FLOWISE_LOG_PATH=/opt/render/.flowise/log
-# ENV FLOWISE_LOG_DIR=/opt/render/.flowise/log
-# ENV HOST=0.0.0.0
-
-RUN mkdir -p /usr/src/data/log
-RUN chmod -R 777 /usr/src/data
-
-ENV FLOWISE_DATA_DIR=/usr/src/data
-ENV FLOWISE_LOG_DIR=/usr/src/data/log
-ENV FLOWISE_LOG_PATH=/usr/src/data/log
-ENV HOST=0.0.0.0
-
 EXPOSE 3000
 
-CMD ["pnpm", "exec", "node", "packages/server/dist/index.js"]
-
-
-# EXPOSE 3000
-
-# # CMD [ "pnpm", "start" ]
-# # CMD ["pnpm", "exec", "node", "packages/server/bin/run", "server"]
-# CMD ["pnpm", "exec", "node", "packages/server/dist/index.js"]
+CMD [ "pnpm", "start" ]
