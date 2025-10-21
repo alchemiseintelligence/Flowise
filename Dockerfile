@@ -17,7 +17,7 @@ RUN apk add --no-cache \
 RUN npm install -g pnpm
 RUN pnpm config set ignore-scripts false
 RUN pnpm set enable-pre-post-scripts true
-RUN pnpm approve-builds --all
+RUN pnpm approve-builds
 
 # --- Environment variables for Puppeteer & Node ---
 ENV PUPPETEER_SKIP_DOWNLOAD=true
