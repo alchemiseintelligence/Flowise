@@ -14,8 +14,8 @@ RUN apk add --no-cache \
     curl
 
 # --- Global PNPM installation ---
-RUN pnpm config set ignore-scripts false
 RUN npm install -g pnpm
+RUN pnpm config set ignore-scripts false
 
 # --- Environment variables for Puppeteer & Node ---
 ENV PUPPETEER_SKIP_DOWNLOAD=true
